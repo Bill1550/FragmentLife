@@ -20,6 +20,7 @@ class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
 
+    // create a binding holder using a delegate
     private val bindingHolder by LazyViewBindingDelegate { container ->
         FragmentMainBinding.inflate(layoutInflater,container,false)
     }

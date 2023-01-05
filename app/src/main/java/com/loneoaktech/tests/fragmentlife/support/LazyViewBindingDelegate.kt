@@ -6,7 +6,8 @@ import androidx.viewbinding.ViewBinding
 import kotlin.reflect.KProperty
 
 /**
- * Delegate to simplify the creation of a LifecycleBindingHolder
+ * Delegate to simplify the creation of a LifecycleBindingHolder.
+ * Ensures that viewLifecycleOwner isn't referenced prematurely.
  */
 class LazyViewBindingDelegate<T : ViewBinding>(
     private val creator: (ViewGroup?)->T
