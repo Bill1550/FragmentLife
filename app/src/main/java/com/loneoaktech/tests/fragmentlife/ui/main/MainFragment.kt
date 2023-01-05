@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.loneoaktech.tests.fragmentlife.databinding.FragmentMainBinding
-import com.loneoaktech.tests.fragmentlife.support.LifecycleBindingHolder
-import com.loneoaktech.tests.fragmentlife.support.lazyViewBinding
+import com.loneoaktech.tests.fragmentlife.support.LazyViewBindingDelegate
 import com.loneoaktech.tests.fragmentlife.support.withViews
 import java.time.LocalTime
 
@@ -21,13 +20,19 @@ class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
 
-    private val bindingHolder = lazyViewBinding { FragmentMainBinding.inflate(layoutInflater) }
-
+    private val bindingHolder by LazyViewBindingDelegate { container ->
+        FragmentMainBinding.inflate(layoutInflater,container,false)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.i("MainFragment", "onCreate")
+
+        // Set retainInstance (even though deprecated) to force onDestroyView to be called
+        // during config change (rotation).
         retainInstance = true
+
+
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         // TODO: Use the ViewModel
 
@@ -40,14 +45,15 @@ class MainFragment : Fragment() {
     ): View {
         Log.i("MainFragment", "onCreateView")
 
-        return bindingHolder.root
+        return bindingHolder.bind(container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // This is the standard way to access views
         bindingHolder.withViews {
-            message.text = LocalTime.now().toString()
+            message.text = LocalTime.now().toString() // show something that changes
         }
     }
 
