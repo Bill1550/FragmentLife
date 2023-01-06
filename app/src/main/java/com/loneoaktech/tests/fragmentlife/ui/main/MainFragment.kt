@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.loneoaktech.tests.fragmentlife.databinding.FragmentMainBinding
@@ -24,6 +25,7 @@ class MainFragment : Fragment() {
     private val bindingHolder by LazyViewBindingDelegate { container ->
         FragmentMainBinding.inflate(layoutInflater,container,false)
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
