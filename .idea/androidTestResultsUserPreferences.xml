@@ -26,7 +26,9 @@
                   <entry key="Duration" value="90" />
                   <entry key="Google" value="120" />
                   <entry key="Google&#10; Pixel 4a" value="120" />
+                  <entry key="R9TR3075VQJ" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="samsung&#10; SM-T500" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
@@ -40,7 +42,9 @@
                   <entry key="08051JEC205939" value="120" />
                   <entry key="Duration" value="90" />
                   <entry key="Google&#10; Pixel 4a" value="120" />
+                  <entry key="R9TR3075VQJ" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="samsung&#10; SM-T500" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>

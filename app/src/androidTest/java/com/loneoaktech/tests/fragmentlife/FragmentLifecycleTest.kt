@@ -10,7 +10,6 @@ import com.loneoaktech.tests.fragmentlife.ui.main.MainFragment
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
-import kotlin.reflect.jvm.isAccessible
 
 
 @RunWith(AndroidJUnit4::class)
@@ -28,7 +27,7 @@ class FragmentLifecycleTest {
         val numBindings = LazyViewBindingDelegate.instances.get()
         println("Num delegates=$numDelegates, num bindings=$numBindings")
 
-        val fragment = MainFragment.newInstance()
+        val fragment = TestFragment.newInstance()
         val scenario = launchFragmentInContainer(
             initialState = Lifecycle.State.INITIALIZED
         ) { fragment }
@@ -66,7 +65,7 @@ class FragmentLifecycleTest {
 
     @Test(expected = java.lang.IllegalStateException::class)
     fun testBindingNotInitialization() {
-        val fragment = MainFragment.newInstance()
+        val fragment = TestFragment.newInstance()
         val scenario = launchFragmentInContainer(
             initialState = Lifecycle.State.INITIALIZED
         ) { fragment }
@@ -93,7 +92,7 @@ class FragmentLifecycleTest {
 
     @Test
     fun testBindingInitialized() {
-        val fragment = MainFragment.newInstance()
+        val fragment = TestFragment.newInstance()
         val scenario = launchFragmentInContainer(
             initialState = Lifecycle.State.INITIALIZED
         ) { fragment }
@@ -114,7 +113,7 @@ class FragmentLifecycleTest {
     @Test
     fun testFragmentRecreateAfterResume() {
 
-        val fragment = MainFragment.newInstance()
+        val fragment = TestFragment.newInstance()
         val scenario = launchFragmentInContainer(
             initialState = Lifecycle.State.INITIALIZED
         ) { fragment }
@@ -136,7 +135,7 @@ class FragmentLifecycleTest {
     @Test(expected = java.lang.IllegalStateException::class )
     fun testFragmentRecreateAfterCreate() {
 
-        val fragment = MainFragment.newInstance()
+        val fragment = TestFragment.newInstance()
         val scenario = launchFragmentInContainer(
             initialState = Lifecycle.State.INITIALIZED
         ) { fragment }
