@@ -3,10 +3,12 @@ package com.loneoaktech.tests.fragmentlife.support
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Small class to create a lazy holder for a view binding
@@ -15,8 +17,17 @@ class LifecycleBindingHolder<T : ViewBinding>(
     private val lifecycleOwner: LifecycleOwner,
     private val creator: (ViewGroup?)->T
 ) {
+    companion object {
+        @VisibleForTesting
+        val instances = AtomicInteger()
+    }
+
+    init {
+        instances.incrementAndGet()
+    }
+
     private var _binding: T? = null
-    private var useCount: Int = 0
+    private var _bindCount: Int = 0
 
     private val observer = LifecycleEventObserver { owner, event ->
         when (event) {
@@ -44,8 +55,8 @@ class LifecycleBindingHolder<T : ViewBinding>(
         get() = binding.root
 
     private fun createBinding(container: ViewGroup?): T {
-        useCount++
-        if (useCount > 1)
+        _bindCount++
+        if (_bindCount > 1)
             Log.i("FragmentBindingHolder", "Reusing binding holder")
 
         lifecycleOwner.lifecycle.addObserver(observer)
@@ -54,12 +65,19 @@ class LifecycleBindingHolder<T : ViewBinding>(
         }
     }
 
-
     private fun clear(owner: LifecycleOwner) {
         Log.i("FragmentBindingHolder", "clearing binding holder")
         _binding = null
         owner.lifecycle.removeObserver(observer)
     }
+
+    @VisibleForTesting
+    val isBound: Boolean
+        get() = _binding != null
+
+    @VisibleForTesting
+    val bindCount: Int
+        get() = _bindCount
 }
 
 //fun <T: ViewBinding> Fragment.lazyViewBinding(creator: (ViewGroup?)->T): LifecycleBindingHolder<T> =

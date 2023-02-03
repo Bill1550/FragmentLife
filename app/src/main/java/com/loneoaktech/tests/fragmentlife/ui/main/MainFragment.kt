@@ -22,7 +22,8 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
 
     // create a binding holder using a delegate
-    private val bindingHolder by LazyViewBindingDelegate { container ->
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE )
+    val bindingHolder by LazyViewBindingDelegate { container ->
         FragmentMainBinding.inflate(layoutInflater,container,false)
     }
 
@@ -40,6 +41,7 @@ class MainFragment : Fragment() {
         // TODO: Use the ViewModel
 
 //        Log.i("MainFragment", "this should crash: ${bindingHolder.root}")
+
     }
 
     override fun onCreateView(
