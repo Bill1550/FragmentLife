@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
-import com.loneoaktech.tests.fragmentlife.databinding.FragmentMainBinding
+import com.loneoaktech.tests.fragmentlife.databinding.TestFragmentBinding
 import com.loneoaktech.tests.fragmentlife.support.LazyViewBindingDelegate
 import com.loneoaktech.tests.fragmentlife.support.withViews
 import java.time.LocalTime
@@ -22,7 +22,9 @@ class TestFragment : Fragment() {
     // create a binding holder using a delegate
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE )
     val bindingHolder by LazyViewBindingDelegate { container ->
-        FragmentMainBinding.inflate(layoutInflater,container,false)
+
+        TestFragmentBinding.inflate(layoutInflater,container, false)
+//        FragmentMainBinding.inflate(layoutInflater,container,false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
